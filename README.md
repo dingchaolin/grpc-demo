@@ -14,11 +14,18 @@
 - 文件名随意 比如 protoc_gen_go
 - 把protoc_gen_go挪到src/compiler下, 方便编译
 
-#### 编译 *.proto
+#### 编译 *.proto 方式1 <未成功>
 -  ./compiler/protoc --grpc_out=. --plugin=protoc-gen-grpc=./compiler/protoc_gen_go ./proto/myproto.proto
 - 生成 myproto.pb.go  
 - --grpc_out=. 中的. 指 myproto.proto 所在的目录 为当前目录
 - 至此 proto 编译生成go文件 成功
+- 此种方式没有生成带有服务器代码的go文件
+- 未找到为什么没有生成的原因
+#### 编译 方式2 
+- 1.  glide get github.com/golang/protobuf/protoc-gen-go
+- 2.  go install github.com/golang/protobuf/protoc-gen-go
+- 3.  ./compiler/protoc  --go_out=plugins=grpc:.   ./proto/myproto.proto
+- 用这种方式就能正常生成待遇服务器代码的go文件
 
 #### protobuf 语法简介
 ```
@@ -35,4 +42,27 @@ repeated 表示列表/数组
 syntax = "proto3"  默认是 proto2
 
 ```
+- 要想编译生成的有服务 支持grpc调用 需要类似这么写
+```
+message AddressBook{
+    repeated Person person = 1;
+}
+
+message AddressBook{
+    repeated Person people = 1;
+}
+
+message AddPersonRequest{
+    Person person = 1;
+}
+
+message AddPersonResponse{
+    int32 id = 1;
+}
+
+service AddressBookStore{
+    rpc AddPerson(AddPersonRequest) returns(AddPersonResponse);
+}
+```
+
 

@@ -20,11 +20,6 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
-import (
-	context "golang.org/x/net/context"
-	grpc "google.golang.org/grpc"
-)
-
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -179,78 +174,6 @@ func init() {
 	proto.RegisterType((*AddPersonRequest)(nil), "myproto.AddPersonRequest")
 	proto.RegisterType((*AddPersonResponse)(nil), "myproto.AddPersonResponse")
 	proto.RegisterEnum("myproto.PhoneType", PhoneType_name, PhoneType_value)
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConn
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
-
-// Client API for AddressBookStore service
-
-type AddressBookStoreClient interface {
-	AddPerson(ctx context.Context, in *AddPersonRequest, opts ...grpc.CallOption) (*AddPersonResponse, error)
-}
-
-type addressBookStoreClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewAddressBookStoreClient(cc *grpc.ClientConn) AddressBookStoreClient {
-	return &addressBookStoreClient{cc}
-}
-
-func (c *addressBookStoreClient) AddPerson(ctx context.Context, in *AddPersonRequest, opts ...grpc.CallOption) (*AddPersonResponse, error) {
-	out := new(AddPersonResponse)
-	err := grpc.Invoke(ctx, "/myproto.AddressBookStore/AddPerson", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// Server API for AddressBookStore service
-
-type AddressBookStoreServer interface {
-	AddPerson(context.Context, *AddPersonRequest) (*AddPersonResponse, error)
-}
-
-func RegisterAddressBookStoreServer(s *grpc.Server, srv AddressBookStoreServer) {
-	s.RegisterService(&_AddressBookStore_serviceDesc, srv)
-}
-
-func _AddressBookStore_AddPerson_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddPersonRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AddressBookStoreServer).AddPerson(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/myproto.AddressBookStore/AddPerson",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AddressBookStoreServer).AddPerson(ctx, req.(*AddPersonRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _AddressBookStore_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "myproto.AddressBookStore",
-	HandlerType: (*AddressBookStoreServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "AddPerson",
-			Handler:    _AddressBookStore_AddPerson_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/myproto.proto",
 }
 
 func init() { proto.RegisterFile("proto/myproto.proto", fileDescriptor0) }

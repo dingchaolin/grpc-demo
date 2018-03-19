@@ -23,3 +23,16 @@ message Person{
 message AddressBook{
     repeated Person person = 1;
 }
+
+
+message AddPersonRequest{
+    Person person = 1;
+}
+
+message AddPersonResponse{
+    int32 id = 1;
+}
+
+service AddressBookStore{
+    rpc AddPerson(AddPersonRequest) returns(AddPersonResponse);
+}
