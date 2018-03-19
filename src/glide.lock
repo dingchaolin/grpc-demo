@@ -1,11 +1,73 @@
 hash: 66501f0f5c0f42bfa022bdebaab452c9a78fbf10bdd34f6f89542f0bbf36e318
-updated: 2018-03-16T14:25:07.235457+08:00
+updated: 2018-03-19T17:25:56.444309+08:00
 imports:
 - name: github.com/golang/protobuf
   version: 925541529c1fa6821df4e44ce2723319eb2be768
   subpackages:
+  - descriptor
+  - jsonpb/jsonpb_test_proto
   - proto
+  - proto/proto3_proto
+  - proto/testdata
   - protoc-gen-go
+  - protoc-gen-go/descriptor
+  - protoc-gen-go/generator
+  - protoc-gen-go/grpc
+  - protoc-gen-go/plugin
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/struct
+  - ptypes/timestamp
+  - ptypes/wrappers
+- name: golang.org/x/net
+  version: 0ed95abb35c445290478a5348a7b38bb154135fd
+  subpackages:
+  - context
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- name: golang.org/x/text
+  version: e19ae1496984b1c655b8044a65c0300a3c878dd3
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: google.golang.org/genproto
+  version: f8c8703595236ae70fdf8789ecb656ea0bcdcf46
+  subpackages:
+  - googleapis/rpc/status
 - name: google.golang.org/grpc
   version: 8e4536a86ab602859c20df5ebfd0bd4228d08655
-testImports: []
+  subpackages:
+  - balancer
+  - balancer/base
+  - balancer/roundrobin
+  - codes
+  - connectivity
+  - credentials
+  - encoding
+  - encoding/proto
+  - grpclb/grpc_lb_v1/messages
+  - grpclog
+  - internal
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - stats
+  - status
+  - tap
+  - transport
+testImports:
+- name: golang.org/x/sync
+  version: 1d60e4601c6fd243af51cc01ddf169918a5407ca
+  subpackages:
+  - errgroup

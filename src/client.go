@@ -4,8 +4,8 @@
 
 package main
 
-import "log"
+import "client"
 
 func main(){
-	log.Println("123")
+	client.ClientStart()
 }
